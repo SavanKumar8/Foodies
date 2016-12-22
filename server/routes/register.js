@@ -9,78 +9,46 @@ var User=require("../models/user.js");
 //schema for authentication
 
 
-router.post('/', function(req, res, next) {
+router.post('/register', function(req, res, next) {
+console.log("inside register route");
+
+ var firstName=req.body.firstName;
+ var lastName=req.body.lastName;
+ var username=req.body.username;
+ var password=req.body.password;
 
 
-  var name=req.body.name;
-  var username=req.body['username'];
-  var password=req.body['password'];
+ var newUser=new User();
+ newUser.firstname=firstName;
+ newUser.lastname=lastName;
+ newUser.username=username;
+ newUser.password=password;
 
+ //save
+ newUser.save(function (err, savedUser) {
+ if (err) {
+ console.log(savedUser);
+ console.log(newUser.firstname+" "+newUser.lastname+" "+newUser.username+" "+newUser.password);
 
-  var newUser=new User();
-  newUser.name=name;
-  newUser.username=username;
-  newUser.password=password;
+ return res.send("Error during register");
 
-  //save
-  newUser.save(function (err, savedUser) {
-  if (err) {
+ }
+ else{
 
-    console.error(err);
-    return res.status(500).send();
-  }
-  else{
-  console.log(savedUser);
-  console.log(newUser.name+" "+newUser.username+" "+newUser.password);
-
-  return res.status(200).send();
+ console.error(err);
+   return res.send("registered Successfully");
 }
 
-  });
+ });
 
-  /*
-  new User(
-  name=req.body.name,
-  username=req.body['username'],
-  password=req.body['password']
 
-).save(function (err, savedUser) {
-  if (err) {
 
-    console.error(err);
-    return res.status(500).send();
-  }
-  //console.log(savedUser);
-  console.log(newUser.name+" "+newUser.username+" "+newUser.password);
-
-  return res.status(200).send("Success");
-
-  });
-*/
-
-  //display
-  User.find(function (err, kittens) {
-  if (err) return console.error(err);
-  console.log(kittens);
+ //display
+ User.find(function (err, kittens) {
+ if (err) return console.error(err);
+ console.log(kittens);
 })
 
 
-/*
-  console.log(name+username+password);
-  var register = new user({
-  name: String,
-  username: String,
-  password: String });
-  //save into DB
-
-
-//display
-user.find(function (err, users) {
-  if (err) return console.error(err);
-  console.log(users);
-})
-  res.send('<h1>Hi '+name+'</h1><br> Username : '+username+'<BR> Password : '+password);
-  */
-});
 
 module.exports = router;
