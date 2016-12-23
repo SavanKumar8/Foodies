@@ -29,7 +29,7 @@ return(
 <div>
 
 <SearchComponent newsSource={this.setRestaurantAr.bind(this)}/>
-<RestaurantBoxComponent  />
+<RestaurantBoxComponent  restAr={this.state.restaurants}/>
 
 
 </div>

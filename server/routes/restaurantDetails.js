@@ -58,6 +58,7 @@ router.get('/viewRestaurant',function(req, res, next) {
     }
     restaurant=restaurantDetail;
     console.log(restaurant);
+
     res.json(restaurant);
   });
 

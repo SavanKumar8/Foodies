@@ -49,6 +49,6 @@ console.log("inside register route");
  console.log(kittens);
 })
 
-
+});
 
 module.exports = router;
